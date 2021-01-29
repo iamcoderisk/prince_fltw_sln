@@ -3,7 +3,6 @@ const bodyParser = require('body-parser');
 const morgan = require('morgan');
 const cors = require('cors');
 var validateRule = require('./routes/validateRule');
-var defaultRule = require('./routes/defaultRule');
 require('dotenv').config();
 
  
@@ -15,7 +14,22 @@ app.use(cors());
 app.use(bodyParser.json());
 app.use(morgan('dev'));
 
-app.use('/', defaultRule);
+app.get('/', (req, res, next) => {
+     res.send({
+        "message": "My Rule-Validation API",
+        "status": "success",
+        "data": {
+            "name": "Prince Darlington",
+            "github": "@iamcoderisk",
+            "email": "ekeminyd@gmail.com",
+            "mobile": "08141261989",
+            "twitter" : "@iamcoderisk"
+        }
+     })
+    next()
+})
+
+
 app.use('/validate-rule', validateRule);
 
 
